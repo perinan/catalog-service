@@ -4,6 +4,7 @@ import com.polarbookshop.catalogservice.config.DataConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -15,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJdbcTest
 @Import(DataConfig.class)
-//@AutoConfigureTestDatabase(
-//        replace = AutoConfigureTestDatabase.Replace.NONE
-//)
+@AutoConfigureTestDatabase(
+        replace = AutoConfigureTestDatabase.Replace.NONE
+)
 @ActiveProfiles("integration")
 class BookRepositoryJdbcTests {
 
@@ -49,6 +50,7 @@ class BookRepositoryJdbcTests {
         var book1 = Book.of(book1Isbn, "Title1", "Author1", 1.0, "Publisher");
         var book2Isbn = "1234561238";
         var book2 = Book.of(book2Isbn, "Title2", "Author2", 2.0, "Publisher");
+        jdbcAggregateTemplate.deleteAll(Book.class);
         jdbcAggregateTemplate.insertAll(List.of(book1, book2));
 
         // Act
