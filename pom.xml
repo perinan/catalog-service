@@ -29,6 +29,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<container-registry>ghcr.io</container-registry>
+		<user-container-registry>perinan</user-container-registry>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -138,6 +140,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<imageName>${container-registry}/${user-container-registry}/${project.artifactId}:${project.version}</imageName>
 				</configuration>
 			</plugin>
 		</plugins>
