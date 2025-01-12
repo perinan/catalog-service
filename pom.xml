@@ -140,7 +140,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<imageName>${container-registry}/${user-container-registry}/${project.artifactId}:${project.version}</imageName>
+					<!--<imageName>${container-registry}/${user-container-registry}/${project.artifactId}:${project.version}</imageName>-->
 				</configuration>
 			</plugin>
 		</plugins>
