@@ -5,6 +5,7 @@ metadata:
   labels:
     app: catalog-service
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: catalog-service
@@ -15,11 +16,19 @@ spec:
     spec:
       containers:
         - name: catalog-service
-          image: catalog-service
+          image: ghcr.io/perinan/catalog-service:1.0.0
           imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 5" ]
           ports:
             - containerPort: 9001
           env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-service:80
+            - name: SPRING_CLOUD_CONFIG_FAILFAST
+              value: "true"
             - name: BPL_JVM_THREAD_COUNT
               value: "50"
             - name: SPRING_DATASOURCE_URL
